@@ -35,7 +35,6 @@ export default function Navbar() {
             </Button>
           </Link>
         </div>
-        {/* <Heading size={"lg"}>Connectify </Heading> */}
       </header>
     </>
   );
