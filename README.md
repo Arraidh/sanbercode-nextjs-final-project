@@ -38,3 +38,36 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## Tools Utilization
+
+- ESLint & Prettier Code Linting
+- Tailwind CSS Styling framework
+- Chakra UI Styling Library
+- Layout: Component based implementation Dynamic Import
+  - Navbar
+  - Footer
+  - State Management
+- SEO Meta data: Implemented page-based
+  - Post
+  - Replies
+  - Welcome/Main Page
+- Route/URL Page Frontend & API Mapping
+  - `/` Main page
+    - GET all post
+  - `/login` Login page
+    - Login
+  - `/register` Register page
+    - Register
+  - `/profile` Profile page
+    - Get personal info
+  - `/post/[id]` Post Detail Page - Dynamic Route
+    - CRUD Post Detail
+    - CRUD Replies
+    - Like & Unlike
+- Image Optimization
+  - Next JS Image
+- Axios API Fetching
+- React Form - Form state management
+- Middleware - Authentification
+- UseContext - State Management
