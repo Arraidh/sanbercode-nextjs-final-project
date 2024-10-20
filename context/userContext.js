@@ -9,8 +9,9 @@ export const UserContext = createContext({});
 export function UserContextProvider({ children, ...props }) {
   const router = useRouter();
   const [userData, setUserData] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
+  const validateUser = () => {
     axios
       .get("https://service.pace-unv.cloud/api/user/me", {
         headers: { Authorization: `Bearer ${Cookies.get("token")}` },
@@ -22,9 +23,18 @@ export function UserContextProvider({ children, ...props }) {
         setUserData(err?.response?.data);
         Cookies.remove("token");
       });
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, "1000");
+  };
+
+  useEffect(() => {
+    validateUser();
   }, []);
 
   const login = (response) => {
+    setIsLoading(true);
     const token = response?.data?.data?.token;
     const tokenExpiration = response?.data?.data?.expires_at;
 
@@ -34,12 +44,15 @@ export function UserContextProvider({ children, ...props }) {
       path: "/",
     });
 
+    validateUser();
+
     setTimeout(() => {
       router.push("/");
     }, "2000");
   };
 
   const logout = () => {
+    setIsLoading(true);
     toast.promise(
       axios
         .post(
@@ -71,12 +84,19 @@ export function UserContextProvider({ children, ...props }) {
         error: "Opps, Error occured",
       }
     );
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, "1000");
   };
 
   return (
     <>
       <Toaster />
-      <UserContext.Provider value={{ userData, logout, login }} {...props}>
+      <UserContext.Provider
+        value={{ userData, logout, login, isLoading }}
+        {...props}
+      >
         {children}
       </UserContext.Provider>
     </>
