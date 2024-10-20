@@ -1,5 +1,6 @@
-import CreatePostCard from "@/components/create-post-card";
-import ModifyPostMenu from "@/components/modify-post-menu";
+import CreatePostCard from "@/components/posts/create-post-card";
+import LikeButton from "@/components/posts/like-button";
+import ModifyPostMenu from "@/components/posts/modify-post-menu";
 import Layout from "@/layout";
 import indonesianDateFormat from "@/utils/date-format";
 import {
@@ -89,7 +90,8 @@ export default function Home() {
                   </CardBody>
                   <CardFooter>
                     <ButtonGroup variant="ghost" spacing="2" className="w-full">
-                      <Button
+                      <LikeButton post={post} />
+                      {/* <Button
                         colorScheme={post?.is_like_post ? "red" : "gray"}
                         className="w-full"
                         leftIcon={
@@ -97,7 +99,7 @@ export default function Home() {
                         }
                       >
                         {post?.likes_count} Like
-                      </Button>
+                      </Button> */}
 
                       <Button
                         colorScheme="gray"

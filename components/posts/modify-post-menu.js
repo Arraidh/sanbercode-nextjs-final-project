@@ -18,7 +18,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaEllipsisVertical } from "react-icons/fa6";
-import { FaTrash } from "react-icons/fa";
 import { useRef } from "react";
 
 import axios from "axios";

@@ -22,22 +22,24 @@ export default function Profile() {
     <>
       <Layout>
         <div className="w-full max-w-lg ">
-          <IconButton
-            variant="ghost"
-            colorScheme={"red"}
-            aria-label="Back to Home Page"
-            icon={<ChevronLeftIcon />}
-            className="my-4"
-            onClick={() => {
-              router.push("/");
-            }}
-          />
           <Card className="!shadow-lg">
             <CardHeader>
               <Stack gap={2}>
-                <Heading as="h1" size="xl" className="text-rose-900">
-                  Profile
-                </Heading>
+                <div className="flex items-center gap-4">
+                  <IconButton
+                    variant="ghost"
+                    colorScheme={"red"}
+                    aria-label="Back to Home Page"
+                    icon={<ChevronLeftIcon />}
+                    className="my-4"
+                    onClick={() => {
+                      router.push("/");
+                    }}
+                  />
+                  <Heading as="h1" size="xl" className="text-rose-900">
+                    Profile
+                  </Heading>
+                </div>
 
                 <Divider />
               </Stack>

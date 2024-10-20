@@ -11,6 +11,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { mutate } from "swr";
 
 export default function CreatePostCard() {
   const {
@@ -29,6 +30,7 @@ export default function CreatePostCard() {
         })
         .then((res) => {
           setValue("description", "");
+          mutate("https://service.pace-unv.cloud/api/posts?type=all");
           return;
         })
         .catch((err) => {

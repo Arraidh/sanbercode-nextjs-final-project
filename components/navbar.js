@@ -14,6 +14,11 @@ import { useContext, useEffect } from "react";
 import Icon from "@/public/icon.svg";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import {
+  IoPersonCircle,
+  IoLogOut,
+  IoNotificationsCircle,
+} from "react-icons/io5";
 
 export default function Navbar() {
   const router = useRouter();
@@ -59,19 +64,23 @@ export default function Navbar() {
                         onClick={() => {
                           router.push("/profile");
                         }}
+                        icon={<IoPersonCircle size={"20"} />}
                       >
                         Profile
                       </MenuItem>
-                      <MenuItem isFocusable={true}>
-                        {" "}
-                        <Button
-                          colorScheme="red"
-                          className="!bg-rose-900 w-full"
-                          size={"sm"}
-                          onClick={logout}
-                        >
-                          Logout
-                        </Button>
+                      <MenuItem
+                        onClick={() => {
+                          router.push("/notification");
+                        }}
+                        icon={<IoNotificationsCircle size={"20"} />}
+                      >
+                        Notification
+                      </MenuItem>
+                      <MenuItem
+                        onClick={logout}
+                        icon={<IoLogOut size={"20"} />}
+                      >
+                        Logout
                       </MenuItem>
                     </MenuList>
                   </Menu>
