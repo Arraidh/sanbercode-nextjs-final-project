@@ -13,6 +13,9 @@ module.exports = {
         foreground: "var(--foreground)",
       },
     },
+    fontFamily: {
+      sans: ["var(--font-poppins)", "sans-serif"],
+    },
   },
   plugins: [],
 };
