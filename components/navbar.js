@@ -19,9 +19,9 @@ export default function Navbar() {
   const router = useRouter();
   const { userData, logout, isLoading } = useContext(UserContext);
 
-  useEffect(() => {
-    console.log(userData);
-  }, []);
+  // useEffect(() => {
+  //   console.log(userData);
+  // }, []);
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function Navbar() {
                 <>
                   <Menu>
                     <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                      {userData?.data?.name}
+                      {userData?.data?.name[0]}
                     </MenuButton>
                     <MenuList>
                       <MenuItem

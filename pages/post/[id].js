@@ -1,5 +1,5 @@
-import CreatePostCard from "@/components/create-post-card";
 import Layout from "@/layout";
+import { useRouter } from "next/router";
 import indonesianDateFormat from "@/utils/date-format";
 import {
   Button,
@@ -9,40 +9,59 @@ import {
   CardFooter,
   CardHeader,
   Heading,
-  Input,
+  Spinner,
   Stack,
   Text,
-  Textarea,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 
-export default function Home() {
+export default function Page() {
+  const [post, setPost] = useState();
+  const [replies, setReplies] = useState();
   const router = useRouter();
-  const [postData, setPostData] = useState([]);
+  const { id } = router.query;
+  console.log(router);
 
   useEffect(() => {
-    axios
-      .get("https://service.pace-unv.cloud/api/posts?type=all", {
-        headers: { Authorization: `Bearer ${Cookies.get("token")} ` },
-      })
-      .then((res) => {
-        const arr = res?.data.data || [];
-        setPostData(arr);
-      });
-  }, []);
+    if (id) {
+      axios
+        .get(`https://service.pace-unv.cloud/api/post/${id}`, {
+          headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+        })
+        .then((res) => {
+          console.log(res?.data?.data);
+          setPost(res?.data?.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      axios
+        .get(`https://service.pace-unv.cloud/api/replies/post/${id}`, {
+          headers: { Authorization: `Bearer ${Cookies.get("token")}` },
+        })
+        .then((res) => {
+          console.log(res?.data?.data);
+          setReplies(res?.data?.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [id]);
+
   return (
     <>
       <Layout>
-        <div className="w-full max-w-md grid grid-cols-1 gap-2">
-          <CreatePostCard />
-          {postData.map((post) => (
-            <Card className="w-full  shadow-xl  ">
+        {" "}
+        {post ? (
+          <div className="grid grid-cols-1 gap-2 w-full max-w-lg">
+            <Card className="w-full  shadow-xl mx-auto">
               <CardHeader onClick={() => router.push(`/post/${post?.id}`)}>
                 <Stack gap={4}>
                   <Stack gap={2}>
@@ -65,21 +84,43 @@ export default function Home() {
                     className="w-full"
                     leftIcon={post?.is_like_post ? <FaHeart /> : <FaRegHeart />}
                   >
-                    {post?.likes_count} Like
+                    {post?.likes_count} Save
                   </Button>
 
                   <Button
                     colorScheme="gray"
                     className="w-full"
                     leftIcon={<FaRegComment />}
+                    disabled
                   >
                     {post?.replies_count} Comment
                   </Button>
                 </ButtonGroup>
               </CardFooter>
             </Card>
-          ))}
-        </div>
+            <Card>
+              <CardHeader>
+                <Heading>Replies {post?.replies_count}</Heading>
+              </CardHeader>
+              <CardBody>
+                <Stack gap={4}>
+                  {replies
+                    ? replies.map((reply) => (
+                        <>
+                          <div className="">{reply?.description}</div>
+                        </>
+                      ))
+                    : ""}
+                </Stack>
+              </CardBody>
+            </Card>
+          </div>
+        ) : (
+          <>
+            {" "}
+            <Spinner />
+          </>
+        )}
       </Layout>
     </>
   );
